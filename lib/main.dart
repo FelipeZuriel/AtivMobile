@@ -27,23 +27,27 @@ class MyHomePage extends StatelessWidget {
 
   Widget buildAlunoCard(Aluno aluno) {
     return Card(
-      child: Column(
-        children: <Widget>[
-          Image.network(aluno.urlImage),
-          Text(aluno.nome,
-              style: TextStyle(
-                  color: Colors.grey[800],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  fontFamily: 'RobotoMono')),
-          Text(aluno.description,
-              style: TextStyle(
-                  color: Colors.grey[800],
-                  fontSize: 15,
-                  fontFamily: 'RobotoSlab')),
-        ],
-      ),
-    );
+        elevation: 2.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              Image.network(aluno.urlImage),
+              Text(aluno.nome,
+                  style: TextStyle(
+                      color: Colors.grey[800],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      fontFamily: 'RobotoMono')),
+              Text(aluno.description,
+                  style: TextStyle(
+                      color: Colors.grey[800],
+                      fontSize: 15,
+                      fontFamily: 'RobotoSlab')),
+            ],
+          ),
+        ));
   }
 
   @override
@@ -54,11 +58,21 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: new Container(
-        padding: EdgeInsets.all(16.0),
         child: ListView.builder(
           itemCount: Aluno.exemplos.length,
           itemBuilder: (BuildContext context, int index) {
-            return buildAlunoCard(Aluno.exemplos[index]);
+            return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return Text("Detalhes aluno");
+                      },
+                    ),
+                  );
+                },
+                child: buildAlunoCard(Aluno.exemplos[index]));
             // return Text(Aluno.exemplos[index].nome);
           },
         ),
@@ -66,3 +80,21 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+// class _PageStudant extends State<MyHomePage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         Navigator.push(context,
+//           MaterialPageRoute(
+//             builder: (context) {
+//               return Text("Detalhes aluno");
+//             },
+//           ),
+//         );
+//       },
+//       return buildAlunoCard(Aluno.exemplos[index]);
+//     );
+//   }
+// }
