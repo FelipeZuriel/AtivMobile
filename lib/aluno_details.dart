@@ -1,33 +1,56 @@
-import 'package:flutter/material.dart';
-import 'aluno.dart';
+import "package:flutter/material.dart";
+import "aluno.dart";
 
-class AlunoDetail extends StatefulWidget {
+class AlunoDetalhe extends StatefulWidget {
   final Aluno aluno;
 
-  const AlunoDetail({
+  const AlunoDetalhe({
     Key? key,
     required this.aluno,
-  }) : super(key:key);
+  }) : super(key: key);
 
   @override
-  _AlunoDetailState createState(){
-    return _AlunoDetailState()
+  _AlunoDetalheState createState() {
+    return _AlunoDetalheState();
   }
 }
 
-class _AlunoDetailState extends State<AlunoDetail> {
-
+class _AlunoDetalheState extends State<AlunoDetalhe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         title: Text(widget.aluno.nome),
       ),
       body: SafeArea(
-        child: Column(
-          children: <Widget> Text("Teste"),
-        )
+        child: Container(
+          margin: EdgeInsets.only(top: 16.0),
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 300,
+                width: double.infinity,
+                child: Image.network(widget.aluno.urlImage),
+              ),
+              Text(widget.aluno.description),
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(7.0),
+                  itemCount: widget.aluno.disciplina.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final disciplina = widget.aluno.disciplina[index];
+                    return Text(
+                        'Disciplina: ${disciplina.nome}\nNota: ${disciplina.nota}',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                            fontFamily: 'RobotoSlab'));
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
